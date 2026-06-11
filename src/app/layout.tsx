@@ -1,0 +1,48 @@
+import type { Metadata } from 'next'
+import { Libre_Baskerville, Jost } from 'next/font/google'
+import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
+import './globals.css'
+
+// Huisstijl-typografie (Brand Book 2026): titels in Baskerville,
+// basistekst in Century Gothic. Libre Baskerville en Jost zijn de
+// dichtstbijzijnde vrij beschikbare equivalenten.
+const baskerville = Libre_Baskerville({
+  subsets:  ['latin'],
+  variable: '--font-serif',
+  display:  'swap',
+  weight:   ['400', '700'],
+  style:    ['normal', 'italic'],
+})
+
+const jost = Jost({
+  subsets:  ['latin'],
+  variable: '--font-sans',
+  display:  'swap',
+})
+
+export const metadata: Metadata = {
+  title: {
+    default:  'Gastrovino Rotterdam',
+    template: '%s · Gastrovino Rotterdam',
+  },
+  description:
+    'Dé plek voor wijn, delicatessen & Rotterdamse smaak op de Nieuwe Binnenweg 335A. Borrelplanken, wijnproeverijen en lokale specialiteiten.',
+  openGraph: {
+    siteName: 'Gastrovino Rotterdam',
+    locale:   'nl_NL',
+    type:     'website',
+  },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="nl" className={`${baskerville.variable} ${jost.variable}`}>
+      <body>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
+    </html>
+  )
+}

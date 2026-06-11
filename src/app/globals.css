@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Officiële Gastrovino huisstijl (Brand Book 2026) */
+  :root {
+    --color-background:   #FBF1DB;   /* Roomwit */
+    --color-surface:      #F4E6C9;
+    --color-surface-up:   #EAD8B4;
+    --color-olive:        #71413D;   /* Diep Terracotta (primair accent) */
+    --color-terracotta:   #71413D;
+    --color-gold:         #B39662;   /* Goudbeige */
+    --color-ink:          #241B18;
+    --color-ink-muted:    #6A564E;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+
+  /* Refined focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Decoratieve scheidingslijn met ornament */
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-gold);
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  /* Warme kaartbasis */
+  .card-warm {
+    @apply bg-cream-dark rounded-xl shadow-warm transition-shadow duration-300 hover:shadow-warm-lg;
+  }
+
+  /* Ondertitel met wit vlak — zie Brand Book p.4 ("Century Gothic met wit vlak") */
+  .subtitle-vlak {
+    @apply inline-block bg-white text-ink px-3 py-1 text-[11px] uppercase tracking-[0.25em] font-sans font-medium;
+  }
+}

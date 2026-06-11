@@ -1,0 +1,91 @@
+// Gastrovino Rotterdam - Prisma Schema
+// Single Source of Truth conform DATA_BLUEPRINT.md
+//
+// Setup:
+//   1. Zet DATABASE_URL in .env
+//   2. npx prisma migrate dev --name init
+//   3. npm run seed
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma 7: de DATABASE_URL staat in prisma.config.ts (niet meer in het schema).
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Source {
+  LANDELIJK // Gescraped van gastrovinoshop.nl
+  LOKAAL    // Handmatig ingevoerd – Nieuwe Binnenweg Rotterdam
+  HYBRIDE   // Afbeelding/omschrijving landelijk, prijs/voorraad lokaal
+}
+
+// ─── Product ─────────────────────────────────────────────────────────────────
+
+model Product {
+  // Identiteit
+  id   String @id @default(cuid())
+  sku  String @unique // bijv. "GV-VENTOPURO-CARMENERE-SINGLE-VINEYARD"
+  name String
+  slug String @unique // SEO URL-component, bijv. "ventopuro-carmenere-single-vineyard"
+
+  // Herkomst
+  source Source @default(LANDELIJK)
+
+  // Prijzen (conform blueprint: conflict-resolutie → lokaal overschrijft landelijk)
+  price_fysiek Float? // Prijs in de Rotterdam-winkel
+  price_online Float? // Verkoopprijs webshop
+
+  // Rotterdam-specifiek
+  stock_rotterdam Int?     @default(0) // Actuele voorraad Nieuwe Binnenweg
+  is_local_hero   Boolean  @default(false)
+
+  // Smaakprofiel voor Borrelplank Builder & Wijn-Spijs engine
+  gastronomy_tags String[]
+
+  // Categorie & afbeeldingen
+  category String?
+  images   String[] // Meerdere afbeelding-URL's (index 0 = hoofdafbeelding)
+
+  // Redactionele content
+  description String? @db.Text
+
+  // ── Magento-wijnspecificaties (ontdekt via scraper) ──────────────────────
+  spec_land      String? // Land van herkomst     bijv. "Chili"
+  spec_regio     String? // Wijnregio             bijv. "Colchagua Valley"
+  spec_druif     String? // Druivenras            bijv. "Carmenère"
+  spec_alcohol   String? // Alcoholpercentage     bijv. "14%"
+  spec_wijn_spijs String? // Spijsadvies          bijv. "pasta's, wit vlees"
+
+  // Overige specs als flexibel JSON (smaak, sluiting, inhoud, bewaarpotentie, etc.)
+  specs Json?
+
+  // Tracking
+  source_url String?
+  scraped_at DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  // Relaties
+  clickCollectSlots ClickCollectSlot[]
+
+  @@index([category])
+  @@index([is_local_hero])
+  @@index([spec_land])
+  @@index([spec_druif])
+}
+
+// ─── Click & Collect openingstijden (Rotterdam, Nieuwe Binnenweg) ─────────────
+
+model ClickCollectSlot {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  dag       String // "maandag" | "dinsdag" | ... | "zondag"
+  openTijd  String // "10:00"
+  sluitTijd String // "18:00"
+}
