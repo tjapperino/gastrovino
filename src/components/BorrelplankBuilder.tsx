@@ -5,7 +5,7 @@ import {
   MapPin, Clock, ShoppingBag, Check, ChevronRight, ChevronLeft,
   Plus, Minus, Star, Users, Sparkles, UtensilsCrossed, Hammer,
 } from 'lucide-react'
-import { BORRELPLANKEN } from '@/lib/assortiment-data'
+import { BORRELPLANKEN, WIJNEN as ECHTE_WIJNEN, type Product } from '@/lib/assortiment-data'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -27,65 +27,28 @@ interface BorrelProduct {
 
 type Mode = 'vast' | 'zelf'
 
-// ─── Product data (scraped + seed data) ──────────────────────────────────────
+// ─── Product data ─────────────────────────────────────────────────────────────
 
-const WIJNEN: BorrelProduct[] = [
-  {
-    sku: 'GV-VENTOPURO-CARMENERE-SINGLE-VINEYARD',
-    name: 'Ventopuro Carmenère',
-    subtitle: 'Single Vineyard · Chili',
-    description: 'Vol en krachtig met intense aroma\'s van rijp fruit, chocolade en kruidigheden. Zachte tannines.',
-    price: 10.95,
-    tags: ['vol', 'krachtig', 'kruidig'],
-    emoji: '🍷',
-    land: 'Chili',
-    druif: 'Carmenère',
-    alcohol: '14%',
-    spijsAdvies: "pasta's, rood vlees",
-  },
-  {
-    sku: 'GV-BORSAO-TRES-PICOS',
-    name: 'Borsao Tres Picos',
-    subtitle: 'Campo de Borja · Spanje',
-    description: 'Elegant en soepel met rijpe rode vruchten, subtiele specerijen en een lange afdronk.',
-    price: 21.95,
-    tags: ['soepel', 'fruitig', 'elegant'],
-    emoji: '🍷',
-    land: 'Spanje',
-    druif: 'Garnacha',
-    alcohol: '13,5%',
-    spijsAdvies: 'lam, gegrild vlees',
-    badge: 'Bestseller',
-  },
-  {
-    sku: 'GV-BARBERA-D-ASTI-LA-GENA-DOCG',
-    name: "Barbera d'Asti La Gena",
-    subtitle: 'DOCG · Piemonte, Italië',
-    description: 'Expressief met kersen, pruimen en lichte kruidigheid. Levendige zuurgraad, ideaal bij de Italiaanse keuken.',
-    price: 21.95,
-    tags: ['vol', 'fruitig', 'italiaans'],
-    emoji: '🍷',
-    land: 'Italië',
-    druif: 'Barbera',
-    alcohol: '13,5%',
-    spijsAdvies: 'antipasti, pasta, kaas',
-    badge: 'DOCG',
-  },
-  {
-    sku: 'GV-RIBERA-DEL-DUERO-TIERRAS-DE-CAIR',
-    name: 'Tierras de Cair',
-    subtitle: 'Ribera del Duero · Spanje',
-    description: 'Een monumentale wijn. Diepe structuur, rijke tannines, oneindig lange afdronk. Voor de echte kenner.',
-    price: 49.95,
-    tags: ['rijk', 'complex', 'premium'],
-    emoji: '🍷',
-    land: 'Spanje',
-    druif: 'Tempranillo',
-    alcohol: '14,5%',
-    spijsAdvies: 'ribeye, gerijpte kaas',
-    badge: 'Premium',
-  },
-]
+function wijnToBorrelProduct(p: Product): BorrelProduct {
+  const subtitleParts = [p.country, p.regio ?? p.druif].filter(Boolean)
+  return {
+    sku:         p.sku,
+    name:        p.name,
+    subtitle:    subtitleParts.join(' · '),
+    description: p.description,
+    price:       p.price,
+    tags:        p.tags.slice(0, 3),
+    emoji:       '🍷',
+    land:        p.country,
+    druif:       p.druif,
+    alcohol:     p.alcohol,
+    spijsAdvies: p.smaak,
+    isLocalHero: p.is_local_hero,
+    badge:       p.badge,
+  }
+}
+
+const WIJNEN: BorrelProduct[] = ECHTE_WIJNEN.map(wijnToBorrelProduct)
 
 const KAZEN: BorrelProduct[] = [
   {
@@ -475,10 +438,10 @@ function Sidebar({
         {/* CTA */}
         {ordered ? (
           <div className="rounded-xl bg-olive/10 border border-olive/25 p-4 text-center animate-fade-in">
-            <p className="font-serif text-base font-medium text-olive mb-1">Bedankt voor je bestelling! 🎉</p>
+            <p className="font-serif text-base font-medium text-olive mb-1">Je e-mailprogramma is geopend ✉️</p>
             <p className="text-xs font-sans text-ink-muted leading-relaxed">
-              We leggen je plank klaar. Je ontvangt een bevestiging per e-mail —
-              afhalen kan tijdens openingstijden op de Nieuwe Binnenweg 335A.
+              Verstuur de mail om je bestelling te bevestigen. Naomi &amp; Melanie
+              leggen je plank klaar voor afhalen op de Nieuwe Binnenweg 335A.
             </p>
           </div>
         ) : (
@@ -573,6 +536,46 @@ export default function BorrelplankBuilder() {
   const switchMode = (m: Mode) => {
     setMode(m)
     setOrdered(false)
+  }
+
+  const handleOrder = () => {
+    let lines: string[]
+    if (mode === 'vast' && vastePlank) {
+      lines = [
+        'Borrelplank bestelling via de website',
+        '',
+        `Plank: ${vastePlank.name}`,
+        `Personen: ${vastePlank.persons}`,
+        `Prijs: € ${vastePlank.price.toFixed(2).replace('.', ',')}`,
+        '',
+        'Gewenste afhaaldatum/-tijd: ...',
+        'Ik wil afhalen op de Nieuwe Binnenweg 335A, Rotterdam.',
+      ]
+    } else {
+      lines = ['Borrelplank bestelling via de website', '', 'Zelf samengesteld:', '']
+      if (selectedWijn)
+        lines.push(`Wijn:  ${selectedWijn.name} (${selectedWijn.subtitle}) — € ${selectedWijn.price.toFixed(2).replace('.', ',')}`)
+      KAZEN.forEach(k => {
+        if ((kaasCounts[k.sku] ?? 0) > 0)
+          lines.push(`Kaas:  ${k.name} ×${kaasCounts[k.sku]} — € ${(k.price * kaasCounts[k.sku]).toFixed(2).replace('.', ',')}`)
+      })
+      SNACKS.forEach(s => {
+        if ((snackCounts[s.sku] ?? 0) > 0)
+          lines.push(`Extra: ${s.name} ×${snackCounts[s.sku]} — € ${(s.price * snackCounts[s.sku]).toFixed(2).replace('.', ',')}`)
+      })
+      lines.push(
+        '',
+        `Totaal: € ${zelfTotal.toFixed(2).replace('.', ',')}`,
+        '',
+        'Gewenste afhaaldatum/-tijd: ...',
+        'Ik wil afhalen op de Nieuwe Binnenweg 335A, Rotterdam.',
+      )
+    }
+    const plankNaam = mode === 'vast' && vastePlank ? vastePlank.name : 'Zelf samengesteld'
+    const subject = encodeURIComponent(`Borrelplank bestelling — ${plankNaam}`)
+    const body = encodeURIComponent(lines.join('\n'))
+    window.location.href = `mailto:info@gastrovinorotterdam.nl?subject=${subject}&body=${body}`
+    setOrdered(true)
   }
 
   return (
@@ -690,8 +693,8 @@ export default function BorrelplankBuilder() {
                 </h2>
                 <p className="mt-1 text-sm font-sans text-ink-muted">
                   {step === 1 && 'Kies de wijn die de basis vormt van je borrelplank.'}
-                  {step === 2 && 'Voeg karaktervolle kazen toe — van Rotterdamse Oude tot Piëmontese truffel.'}
-                  {step === 3 && 'Maak je plank compleet met ambachtelijke snacks en Rotterdamse specialiteiten.'}
+                  {step === 2 && 'Voeg karaktervolle kazen toe — van Rotterdamse Oude tot Piëmontese truffel. Beschikbaarheid en actuele prijs in de winkel.'}
+                  {step === 3 && 'Maak je plank compleet met ambachtelijke snacks en Rotterdamse specialiteiten. Beschikbaarheid en actuele prijs in de winkel.'}
                 </p>
               </div>
 
@@ -732,8 +735,8 @@ export default function BorrelplankBuilder() {
                     <div className="rounded-xl border border-gold/30 bg-gold/8 p-4">
                       <p className="text-xs font-sans font-semibold text-gold-dark mb-1">✦ Wijn-kaas tip</p>
                       <p className="text-xs font-sans text-ink-muted leading-relaxed">
-                        De Rotterdamsche Oude (36 mnd) en {selectedWijn.name} vormen een perfect duo —
-                        de pittige kaas balanceert de {selectedWijn.tags[0]} smaak van de wijn prachtig.
+                        Tip: de pittige Rotterdamsche Oude (36 mnd) is een klassieker naast
+                        {' '}{selectedWijn.name}. Voeg hem toe voor een perfecte wijn-kaasbeleving.
                       </p>
                     </div>
                   )}
@@ -819,7 +822,7 @@ export default function BorrelplankBuilder() {
           snackCounts={snackCounts}
           totalPrice={totalPrice}
           canOrder={canOrder}
-          onOrder={() => setOrdered(true)}
+          onOrder={handleOrder}
           ordered={ordered}
         />
       </div>
