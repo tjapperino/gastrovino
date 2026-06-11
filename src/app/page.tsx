@@ -235,7 +235,7 @@ export default function HomePage() {
               <div className="absolute -inset-4 bg-gradient-to-br from-olive/8 to-terracotta/8 rounded-3xl" />
               <div className="relative rounded-2xl overflow-hidden shadow-warm-lg aspect-[3/4]">
                 <Image
-                  src="https://www.gastrovinorotterdam.nl/data/upload/images/1024-1364-1.jpg"
+                  src="/hero-winkel.jpg"
                   alt="Gastrovino Rotterdam winkel"
                   fill
                   className="object-cover"

@@ -65,7 +65,7 @@ export default function OverOnsPage() {
             <div className="absolute -inset-4 bg-gradient-to-br from-olive/10 to-terracotta/10 rounded-3xl" />
             <div className="relative rounded-2xl overflow-hidden shadow-warm-lg aspect-[3/4]">
               <Image
-                src="https://www.gastrovinorotterdam.nl/data/upload/images/1024-1364-1.jpg"
+                src="/hero-winkel.jpg"
                 alt="De winkel van Gastrovino Rotterdam aan de Nieuwe Binnenweg"
                 fill
                 className="object-cover"
