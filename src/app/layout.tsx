@@ -22,6 +22,7 @@ const jost = Jost({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://gastrovinorotterdam.nl'),
   title: {
     default:  'Gastrovino Rotterdam',
     template: '%s · Gastrovino Rotterdam',
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Gastrovino Rotterdam',
     locale:   'nl_NL',
     type:     'website',
+    images:   [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Gastrovino Rotterdam' }],
   },
 }
 

@@ -161,8 +161,40 @@ function HoursChip({ days, time }: { days: string; time: string }) {
 // ─── Hoofd-export ─────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const jsonLd = {
+    '@context':          'https://schema.org',
+    '@type':             ['LocalBusiness', 'WineStore'],
+    name:                'Gastrovino Rotterdam',
+    url:                 'https://gastrovinorotterdam.nl',
+    telephone:           STORE.phone,
+    email:               STORE.email,
+    address: {
+      '@type':           'PostalAddress',
+      streetAddress:     STORE.address,
+      postalCode:        STORE.postcode,
+      addressLocality:   'Rotterdam',
+      addressCountry:    'NL',
+    },
+    geo: {
+      '@type':    'GeoCoordinates',
+      latitude:   51.9174,
+      longitude:   4.4546,
+    },
+    openingHoursSpecification: [
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '18:00' },
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '10:00', closes: '17:00' },
+    ],
+    priceRange:  '€€',
+    servesCuisine: ['Wine', 'Delicatessen'],
+    image:       'https://gastrovinorotterdam.nl/hero-winkel.jpg',
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main>
         {/* ── Hero ── */}
         <section className="relative overflow-hidden bg-cream">
