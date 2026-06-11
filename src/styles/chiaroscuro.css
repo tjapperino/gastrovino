@@ -12,12 +12,6 @@
   --font-body: var(--font-archivo), system-ui, sans-serif;
 }
 
-body {
-  background: var(--nero);
-  color: var(--candela);
-  font-family: var(--font-body);
-}
-
 /* ---------- typografie ---------- */
 .gv-display {
   font-family: var(--font-display);
@@ -84,7 +78,14 @@ body {
   position: relative;
   background: var(--fumo);
   border: 1px solid color-mix(in srgb, var(--oro) 18%, transparent);
+  border-radius: 2px;
   overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gv-card:hover {
+  border-color: color-mix(in srgb, var(--oro) 35%, transparent);
+  box-shadow: 0 8px 40px rgba(19, 16, 16, 0.6);
 }
 
 .gv-card::before {
@@ -103,6 +104,18 @@ body {
 
 .gv-card:hover::before {
   opacity: 1;
+}
+
+/* ---------- film grain — subtiele drukwerk-textuur voor premium gevoel ---------- */
+/* Z-index 9999 zodat de textuur over alles heen ligt, pointer-events: none zodat klikken werkt */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ---------- dunne gouden regel als sectiescheiding ---------- */

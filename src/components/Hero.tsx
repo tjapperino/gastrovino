@@ -63,24 +63,49 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Tekst laag */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="gv-eyebrow mb-6">Vini &amp; delicatesse · Rotterdam</p>
+      {/* Tekst laag — expliciete lichte kleur: tekst moet leesbaar zijn op het donkere beeld */}
+      <div
+        className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+        style={{ color: "var(--candela)" }}
+      >
+        {/* Decoratieve flanken rond eyebrow */}
+        <div className="flex items-center gap-4 mb-6" aria-hidden="true">
+          <div className="h-px w-10" style={{ background: "color-mix(in srgb, var(--oro) 45%, transparent)" }} />
+          <p className="gv-eyebrow">Vini &amp; delicatesse · Rotterdam</p>
+          <div className="h-px w-10" style={{ background: "color-mix(in srgb, var(--oro) 45%, transparent)" }} />
+        </div>
+
         <h1 className="gv-display text-[clamp(3.5rem,14vw,11rem)]">
           Gastrovino
         </h1>
-        <p className="mt-6 max-w-md text-base/relaxed opacity-80">
+
+        <p className="mt-6 max-w-md text-base/relaxed" style={{ opacity: 0.72 }}>
           Italiaanse wijnen en delicatessen, persoonlijk geselecteerd
           door Naomi &amp; Melanie.
         </p>
+
+        {/* Ornament onder tekst */}
+        <p className="mt-8 text-xs tracking-[0.4em] uppercase font-sans" style={{ color: "var(--oro)", opacity: 0.55 }}>
+          ✦
+        </p>
       </div>
 
-      {/* Scroll-cue: dunne gouden lijn die zachtjes ademt */}
+      {/* Scroll-cue: muis-icoon, eleganter dan een lijn */}
       <div
-        className="absolute bottom-8 left-1/2 h-12 w-px -translate-x-1/2 animate-pulse motion-reduce:animate-none"
-        style={{ background: "var(--oro)", opacity: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
         aria-hidden="true"
-      />
+      >
+        <svg
+          width="20"
+          height="32"
+          viewBox="0 0 20 32"
+          fill="none"
+          style={{ color: "var(--oro)", opacity: 0.5 }}
+        >
+          <rect x="1" y="1" width="18" height="30" rx="9" stroke="currentColor" strokeWidth="1.2" />
+          <rect x="9" y="7" width="2" height="6" rx="1" fill="currentColor" className="animate-bounce motion-reduce:animate-none" />
+        </svg>
+      </div>
     </section>
   );
 }

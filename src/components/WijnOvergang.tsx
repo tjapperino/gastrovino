@@ -38,14 +38,19 @@ export default function WijnOvergang() {
   }, [visible, motionOk]);
 
   return (
-    <section ref={sectionRef} className="relative h-[70svh] w-full overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative h-[55svh] w-full overflow-hidden"
+      style={{ background: "var(--nero)" }}
+    >
+      {/* Video laag — pauzeert als niet zichtbaar, valt terug op --nero achtergrond */}
       <video
         ref={videoRef}
         muted
         loop
         playsInline
         preload="none"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover opacity-60"
         aria-hidden="true"
       >
         {motionOk && (
@@ -56,14 +61,32 @@ export default function WijnOvergang() {
         )}
       </video>
 
+      {/* Vignet: donkerder aan de randen, tekst in het centrum leesbaar */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 55% at 50% 42%, transparent 40%, var(--nero) 100%)",
+            "radial-gradient(ellipse 65% 60% at 50% 50%, transparent 30%, rgba(19,16,16,0.88) 100%)",
         }}
         aria-hidden="true"
       />
+
+      {/* Inhoud: uitspraak rechtvaardigt de video */}
+      <div
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
+        style={{ color: "var(--candela)" }}
+      >
+        <p className="gv-eyebrow mb-8">Onze filosofie</p>
+        <blockquote className="gv-display text-[clamp(1.6rem,3.8vw,3.2rem)] max-w-3xl leading-[1.15]">
+          Elke fles heeft een verhaal &mdash;<br className="hidden sm:block" /> wij kiezen alleen de mooiste.
+        </blockquote>
+        <cite
+          className="mt-8 text-xs not-italic font-sans tracking-[0.25em] uppercase"
+          style={{ color: "var(--oro)", opacity: 0.75 }}
+        >
+          Naomi &amp; Melanie
+        </cite>
+      </div>
     </section>
   );
 }
