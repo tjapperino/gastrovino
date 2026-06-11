@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   MapPin, Clock, Phone, Mail, ChevronRight,
   Sparkles, Wine, UtensilsCrossed, Calendar,
 } from 'lucide-react'
-import BrandWordmark from '@/components/BrandWordmark'
 import { FILTER_COUNTS } from '@/lib/assortiment-data'
 import { UPCOMING_EVENT, PROEVERIJ_DATUM_KORT } from '@/lib/evenementen'
+import Hero from '@/components/Hero'
+import WijnOvergang from '@/components/WijnOvergang'
+import ProductShelf from '@/components/ProductShelf'
 
 function IconInstagram() {
   return (
@@ -195,97 +196,10 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Hero />
+      <WijnOvergang />
+      <ProductShelf />
       <main>
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden bg-cream">
-          {/* Warme gradient-achtergrond */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(ellipse 80% 60% at 60% 40%, rgba(113,65,61,0.07) 0%, transparent 70%), ' +
-                'radial-gradient(ellipse 50% 50% at 100% 100%, rgba(179,150,98,0.06) 0%, transparent 60%)',
-            }}
-          />
-
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28 lg:py-36 grid md:grid-cols-[1fr_420px] gap-12 items-center">
-            {/* Tekst */}
-            <div className="space-y-7">
-              <div className="ornament-divider text-gold text-[11px] tracking-[0.3em] uppercase font-sans font-semibold w-fit gap-3">
-                <span className="w-8 h-px bg-gold/50 block" />
-                <span>Nieuwe Binnenweg 335A, Rotterdam</span>
-                <span className="w-8 h-px bg-gold/50 block" />
-              </div>
-
-              <div className="space-y-3">
-                <h1 className="text-ink">
-                  <span className="block font-sans text-sm uppercase tracking-[0.35em] text-ink-muted mb-5">
-                    Welkom bij
-                  </span>
-                  <BrandWordmark className="text-3xl md:text-4xl lg:text-[2.6rem]" />
-                </h1>
-              </div>
-
-              <p className="text-lg text-ink-muted leading-relaxed max-w-md font-sans">
-                Dé plek voor vertrouwde wijnen en de lekkerste delicatessen vanuit
-                de hele wereld — inclusief Rotterdamse Local Heroes, borrelplanken
-                en onvergetelijke wijnproeverijen.
-              </p>
-
-              <p className="text-sm font-sans text-ink-muted/80 italic">
-                Geopend sinds november 2023 &mdash; Naomi &amp; Melanie verwelkomen u graag.
-              </p>
-
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Link
-                  href="/borrelplanken"
-                  className="inline-flex items-center gap-2 bg-terracotta text-cream px-7 py-3.5 rounded-full text-sm font-medium font-sans hover:bg-terracotta-dark transition-colors shadow-warm-sm"
-                >
-                  <UtensilsCrossed size={15} strokeWidth={2} />
-                  Bouw je Borrelplank
-                </Link>
-                <Link
-                  href="/proeverijen"
-                  className="inline-flex items-center gap-2 border border-olive text-olive px-7 py-3.5 rounded-full text-sm font-medium font-sans hover:bg-olive hover:text-cream transition-colors"
-                >
-                  <Sparkles size={15} strokeWidth={2} />
-                  Bekijk Proeverijen
-                </Link>
-              </div>
-            </div>
-
-            {/* Sfeerbeeld — shop-foto */}
-            <div className="relative hidden md:block">
-              <div className="absolute -inset-4 bg-gradient-to-br from-olive/8 to-terracotta/8 rounded-3xl" />
-              <div className="relative rounded-2xl overflow-hidden shadow-warm-lg aspect-[3/4]">
-                <Image
-                  src="/hero-winkel.jpg"
-                  alt="Gastrovino Rotterdam winkel"
-                  fill
-                  className="object-cover"
-                  sizes="420px"
-                  priority
-                />
-                {/* Warme overlay voor kleurbalans */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to bottom, rgba(250,248,245,0.1) 0%, rgba(44,36,22,0.25) 100%)',
-                  }}
-                />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 bg-cream rounded-xl px-4 py-3 shadow-warm-lg border border-cream-darker">
-                <p className="text-[10px] uppercase tracking-widest text-ink-subtle font-sans font-medium">Geopend</p>
-                <p className="text-sm font-serif font-semibold text-ink">Ma–Vr&nbsp; 10:00–18:00</p>
-                <p className="text-xs text-ink-muted font-sans">Za&nbsp; 10:00–17:00</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ── Evenements-banner ── */}
         <section className="bg-gold/15 border-y border-gold/25">
           <div className="mx-auto max-w-6xl px-6 py-5">

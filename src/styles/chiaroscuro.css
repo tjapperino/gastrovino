@@ -1,0 +1,136 @@
+/* Gastrovino — Chiaroscuro design tokens & effecten
+   Importeren in app/globals.css: @import "../styles/chiaroscuro.css";
+   Fonts: zie comment onderaan (next/font in layout.tsx). */
+
+:root {
+  --nero: #131010;        /* warm zwart — basis */
+  --fumo: #211b17;        /* opgelicht oppervlak */
+  --candela: #e9ddc9;     /* warm wit — tekst */
+  --oro: #c29a5b;         /* oud goud — eyebrows, lijnen */
+  --vino: #6e1f2a;        /* diep wijnrood — spaarzaam */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-archivo), system-ui, sans-serif;
+}
+
+body {
+  background: var(--nero);
+  color: var(--candela);
+  font-family: var(--font-body);
+}
+
+/* ---------- typografie ---------- */
+.gv-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+}
+
+.gv-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--oro);
+}
+
+/* ---------- signatuur: het licht-onthullen ---------- */
+/* Secties beginnen in het donker; een warme lichtcirkel
+   "ontsteekt" ze zodra ze in beeld komen. */
+.gv-reveal {
+  --r: 0%;
+  opacity: 0.001;
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 38%,
+    #000 var(--r),
+    transparent calc(var(--r) + 22%)
+  );
+  mask-image: radial-gradient(
+    circle at 50% 38%,
+    #000 var(--r),
+    transparent calc(var(--r) + 22%)
+  );
+  transition:
+    --r 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+}
+
+.gv-reveal.is-lit {
+  --r: 140%;
+  opacity: 1;
+}
+
+@property --r {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+/* Fallback + toegankelijkheid: zonder animatie gewoon tonen */
+@media (prefers-reduced-motion: reduce) {
+  .gv-reveal,
+  .gv-reveal.is-lit {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* ---------- kaars-hover op productkaarten ---------- */
+/* --mx/--my worden door ProductShelf.tsx gezet o.b.v. cursor */
+.gv-card {
+  position: relative;
+  background: var(--fumo);
+  border: 1px solid color-mix(in srgb, var(--oro) 18%, transparent);
+  overflow: hidden;
+}
+
+.gv-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in srgb, var(--oro) 14%, transparent),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.gv-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- dunne gouden regel als sectiescheiding ---------- */
+.gv-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--oro) 45%, transparent),
+    transparent
+  );
+}
+
+/* Fonts — in app/layout.tsx:
+
+import { Cormorant_Garamond, Archivo } from "next/font/google";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  variable: "--font-cormorant",
+});
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-archivo",
+});
+
+<html lang="nl" className={`${cormorant.variable} ${archivo.variable}`}>
+*/

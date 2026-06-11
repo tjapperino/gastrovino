@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Libre_Baskerville, Jost } from 'next/font/google'
+import { Libre_Baskerville, Jost, Cormorant_Garamond, Archivo } from 'next/font/google'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import './globals.css'
@@ -21,6 +21,20 @@ const jost = Jost({
   display:  'swap',
 })
 
+const cormorant = Cormorant_Garamond({
+  subsets:  ['latin'],
+  weight:   ['300', '400'],
+  variable: '--font-cormorant',
+  display:  'swap',
+})
+
+const archivo = Archivo({
+  subsets:  ['latin'],
+  weight:   ['400', '500'],
+  variable: '--font-archivo',
+  display:  'swap',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://gastrovinorotterdam.nl'),
   title: {
@@ -39,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl" className={`${baskerville.variable} ${jost.variable}`}>
+    <html lang="nl" className={`${baskerville.variable} ${jost.variable} ${cormorant.variable} ${archivo.variable}`}>
       <body>
         <SiteHeader />
         {children}
