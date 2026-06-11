@@ -31,16 +31,18 @@ Zie `src/app/layout.tsx` voor font-imports.
 |---|---|
 | `/` | `src/app/page.tsx` |
 | `/assortiment` | `src/app/assortiment/page.tsx` + `src/components/AssortimentShop.tsx` |
-| `/borrelplanken` | `src/app/borrelplanken/page.tsx` + `src/components/BorrelplankBuilder.tsx` |
+| `/borrelplanken` | `src/app/borrelplanken/page.tsx` (statisch, planken uit BORRELPLANKEN) |
 | `/proeverijen` | `src/app/proeverijen/page.tsx` + `src/components/ProeverijAanvraag.tsx` |
 | `/catering` | `src/app/catering/page.tsx` |
 | `/over-ons` | `src/app/over-ons/page.tsx` |
 
 ## Bestelflow (MVP: mailto)
-Zowel de Borrelplank Builder (`BorrelplankBuilder.tsx`) als de
-Proeverij-aanvraag (`ProeverijAanvraag.tsx`) openen een mail-client
-via `window.location.href = 'mailto:info@gastrovinorotterdam.nl?...'`.
-Er is geen backend, geen betaalsysteem, geen database.
+De borrelplanken-pagina (statische `<a href="mailto:...">` per plank,
+alle planken €7,50 p.p.) en de Proeverij-aanvraag (`ProeverijAanvraag.tsx`,
+via `window.location.href`) openen een mail-client naar
+info@gastrovinorotterdam.nl. Er is geen backend, geen betaalsysteem,
+geen database. De assortimentpagina ondersteunt filter-deep-links:
+`/assortiment?filter=wijnen` etc. (keys uit FILTER_LABELS).
 
 ## SEO
 - `metadataBase`: https://gastrovinorotterdam.nl (layout.tsx)

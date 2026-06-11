@@ -1,4 +1,4 @@
-// Productdata voor de assortiment-pagina en de Borrelplank Builder.
+// Productdata voor de assortiment-pagina en de borrelplanken-pagina.
 // Bron: data/rotterdam_shop_products.json — de volledige scrape van de echte
 // webshop (gastrovinorotterdam.nl/webshop), incl. lokaal gedownloade foto's
 // in public/shop/. Opnieuw genereren: node src/scripts/scrape-rotterdam-shop.js

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import AssortimentShop from '@/components/AssortimentShop'
 import { FILTER_COUNTS } from '@/lib/assortiment-data'
 
@@ -13,5 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default function AssortimentPage() {
-  return <AssortimentShop />
+  // Suspense is vereist voor useSearchParams (filter-deep-links) bij statische build
+  return (
+    <Suspense>
+      <AssortimentShop />
+    </Suspense>
+  )
 }

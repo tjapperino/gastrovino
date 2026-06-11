@@ -1,30 +1,41 @@
 "use client";
 
 import { type MouseEvent } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import ScrollReveal from "./ScrollReveal";
 
 /**
- * Voorbeeldsectie: productcategorieën als stillevens in het licht.
- * Data later uit /data/producten.json halen (zelfde patroon als Eus-menu).
+ * Productcategorieën als stillevens in het licht.
+ * Foto's komen uit de echte webshop-scrape (public/shop/).
  */
 const categorieen = [
   {
     naam: "Vini",
     nummer: "01",
-    tekst: "Van Barolo tot natuurwijn uit Sicilië — kleine producenten, eerlijk verhaal.",
-    gradientStops: ["#3a1218", "#5c1e28", "#2a0d10"],
+    tekst: "Van huiswijn tot Amarone DOCG en Champagne — handgeselecteerd, met een eerlijk verhaal.",
+    beeld: "/shop/137-0.png",
+    alt: "Wijnproefbox met flessen van kleine producenten",
+    href: "/assortiment?filter=wijnen",
+    cta: "Bekijk de wijnen",
   },
   {
     naam: "Formaggi",
     nummer: "02",
-    tekst: "Parmigiano Reggiano 36 maanden, pecorino, gorgonzola dolce.",
-    gradientStops: ["#2a1d0c", "#3d2a14", "#1e1508"],
+    tekst: "Hollandse en buitenlandse kazen — van Rotterdamsche Oude tot Vacherin Mont d'Or.",
+    beeld: "/shop/154-0.jpeg",
+    alt: "Romige Vacherin Mont d'Or met vers brood",
+    href: "/borrelplanken",
+    cta: "Proef ze op de borrelplank",
   },
   {
     naam: "Dispensa",
     nummer: "03",
-    tekst: "Olijfolie, pasta di Gragnano, antipasti — de Italiaanse voorraadkast.",
-    gradientStops: ["#141f0c", "#1e2e10", "#0e160a"],
+    tekst: "Olijfolie, Tomasu-sojasaus uit Rotterdam, dolci en antipasti — de Italiaanse voorraadkast.",
+    beeld: "/shop/42-0.jpg",
+    alt: "Italiaans delicatessenpakket met spumante en antipasti",
+    href: "/assortiment?filter=delicatessen",
+    cta: "Ontdek de delicatessen",
   },
 ];
 
@@ -48,66 +59,47 @@ export default function ProductShelf() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {categorieen.map((cat) => (
-            <article
+            <Link
               key={cat.naam}
-              className="gv-card group cursor-pointer"
+              href={cat.href}
+              className="gv-card group block"
               onMouseMove={volgLicht}
             >
-              {/* Gradient panel vervangt de ontbrekende categoriefoto's */}
               <div className="aspect-[4/5] overflow-hidden relative">
+                <Image
+                  src={cat.beeld}
+                  alt={cat.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover opacity-75 transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                />
+                {/* Donkere verloop onderaan zodat tekst en kader leesbaar blijven */}
                 <div
-                  className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: `linear-gradient(160deg, ${cat.gradientStops[0]}, ${cat.gradientStops[1]} 55%, ${cat.gradientStops[2]})`,
+                    background:
+                      "linear-gradient(180deg, rgba(19,16,16,0.25), transparent 35%, transparent 60%, rgba(19,16,16,0.75))",
                   }}
                 />
-                {/* Subtiel grid patroon voor textuur */}
-                <div
-                  className="absolute inset-0 opacity-[0.06]"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(0deg, var(--oro) 0px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, var(--oro) 0px, transparent 1px, transparent 40px)",
-                  }}
-                />
-                {/* Groot cijfer als decoratief achtergrond-element */}
-                <div className="absolute inset-0 flex items-end justify-end p-4 select-none pointer-events-none">
-                  <span
-                    className="gv-display leading-none select-none"
-                    style={{
-                      fontSize: "clamp(6rem, 15vw, 10rem)",
-                      color: "var(--oro)",
-                      opacity: 0.08,
-                    }}
-                  >
-                    {cat.nummer}
-                  </span>
-                </div>
-                {/* Diagonale gouden lijn ornament */}
-                <svg
-                  className="absolute top-6 left-6 opacity-25"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  aria-hidden="true"
+                <span
+                  className="absolute top-5 right-5 font-sans text-[10px] tracking-[0.3em] uppercase"
+                  style={{ color: "var(--oro)", opacity: 0.85 }}
                 >
-                  <line x1="0" y1="48" x2="48" y2="0" stroke="var(--oro)" strokeWidth="0.8" />
-                  <circle cx="24" cy="24" r="3" stroke="var(--oro)" strokeWidth="0.8" />
-                </svg>
+                  {cat.nummer}
+                </span>
               </div>
               <div className="p-6">
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="gv-display text-3xl">{cat.naam}</h3>
-                  <span
-                    className="font-sans text-[10px] tracking-[0.3em] uppercase"
-                    style={{ color: "var(--oro)", opacity: 0.6 }}
-                  >
-                    {cat.nummer}
-                  </span>
-                </div>
-                <p className="text-sm/relaxed opacity-70">{cat.tekst}</p>
+                <h3 className="gv-display text-3xl">{cat.naam}</h3>
+                <p className="mt-2 text-sm/relaxed opacity-70">{cat.tekst}</p>
+                <span
+                  className="mt-4 inline-flex items-center gap-2 font-sans text-[11px] tracking-[0.2em] uppercase transition-opacity opacity-70 group-hover:opacity-100"
+                  style={{ color: "var(--oro)" }}
+                >
+                  {cat.cta}
+                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

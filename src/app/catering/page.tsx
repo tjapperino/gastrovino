@@ -142,17 +142,17 @@ export default function CateringPage() {
         <div className="mx-auto max-w-6xl px-6 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="font-serif text-xl font-medium text-ink">
-              Zelf een borrelplank samenstellen?
+              Liever een verse borrelplank?
             </h3>
             <p className="text-sm font-sans text-ink-muted mt-1">
-              Gebruik onze Borrelplank Builder voor planken van 2 tot 10 personen.
+              Onze borrelplanken zijn er voor 2 tot 10 personen — € 7,50 per persoon.
             </p>
           </div>
           <Link
             href="/borrelplanken"
             className="inline-flex items-center gap-2 bg-olive text-cream px-6 py-3 rounded-full text-sm font-sans font-medium hover:bg-olive-dark transition-colors shrink-0"
           >
-            Naar de Builder
+            Bekijk de planken
             <ChevronRight size={14} />
           </Link>
         </div>

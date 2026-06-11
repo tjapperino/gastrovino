@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -328,7 +329,11 @@ const GRID_BY_CATEGORY: Partial<Record<FilterKey, string>> = {
 }
 
 export default function AssortimentShop() {
-  const [activeFilter, setActiveFilter] = useState<FilterKey>('alles')
+  // Deep-link vanaf andere pagina's: /assortiment?filter=wijnen
+  const filterParam = useSearchParams().get('filter')
+  const initialFilter: FilterKey =
+    filterParam && filterParam in FILTER_LABELS ? (filterParam as FilterKey) : 'alles'
+  const [activeFilter, setActiveFilter] = useState<FilterKey>(initialFilter)
   const [sortBy, setSortBy] = useState<'default' | 'prijs-laag' | 'prijs-hoog'>('default')
 
   const filtered = ALL_PRODUCTS.filter(p =>

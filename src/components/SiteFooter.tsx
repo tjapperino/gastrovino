@@ -30,7 +30,7 @@ function IconTiktok() {
 
 const FOOTER_NAV = [
   { href: '/assortiment',   label: 'Assortiment' },
-  { href: '/borrelplanken', label: 'Borrelplank Builder' },
+  { href: '/borrelplanken', label: 'Borrelplanken' },
   { href: '/proeverijen',   label: 'Proeverijen & High Tea' },
   { href: '/catering',      label: 'Lunch & Catering' },
   { href: '/over-ons',      label: 'Over Ons' },
