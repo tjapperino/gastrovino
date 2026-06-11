@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import BrandWordmark from '@/components/BrandWordmark'
 import { FILTER_COUNTS } from '@/lib/assortiment-data'
+import { UPCOMING_EVENT, PROEVERIJ_DATUM_KORT } from '@/lib/evenementen'
 
 function IconInstagram() {
   return (
@@ -46,14 +47,6 @@ const STORE = {
   ],
 }
 
-const UPCOMING_EVENT = {
-  label:       'Aankomend evenement',
-  title:       'XXL Wijnproeverij',
-  date:        'Vrijdag 19 juni 2026',
-  price:       '€24,95 p.p.',
-  description: 'Proef meer dan 7 zorgvuldig geselecteerde wijnen, begeleid door een selectie kazen en een persoonlijke wijnbegeleiding.',
-  href:        '/proeverijen',
-}
 
 const NAV_CARDS = [
   {
@@ -78,7 +71,7 @@ const NAV_CARDS = [
     href:        '/proeverijen',
     icon:        Sparkles,
     accent:      'gold' as const,
-    eyebrow:     'Volgende datum: 19 juni',
+    eyebrow:     `Volgende datum: ${PROEVERIJ_DATUM_KORT}`,
     title:       'Wijnproeverijen',
     description: 'Beleef een onvergetelijke avond met onze XXL Wijnproeverij, intieme Privé-proeverij of een luxe High Tea op de Nieuwe Binnenweg.',
     cta:         'Bekijk evenementen',

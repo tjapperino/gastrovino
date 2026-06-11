@@ -1,62 +1,21 @@
 import type { Metadata } from 'next'
 import {
-  Calendar, Clock, Users, Wine, Sparkles, Coffee,
+  Calendar, Clock, Users,
   MapPin, ChevronRight, Star,
 } from 'lucide-react'
 import ProeverijAanvraag from '@/components/ProeverijAanvraag'
+import { EVENEMENTEN, PROEVERIJ_DATUM } from '@/lib/evenementen'
 
 export const metadata: Metadata = {
   title: 'Wijnproeverijen & High Tea',
   description:
-    'Boek een XXL Wijnproeverij, luxe High Tea of besloten Privé Proeverij bij Gastrovino Rotterdam op de Nieuwe Binnenweg 335A. Eerstvolgende editie: vrijdag 19 juni 2026.',
+    `Boek een XXL Wijnproeverij, luxe High Tea of besloten Privé Proeverij bij Gastrovino Rotterdam op de Nieuwe Binnenweg 335A. Eerstvolgende editie: ${PROEVERIJ_DATUM.toLowerCase()}.`,
   openGraph: {
     title: 'Wijnproeverijen — Gastrovino Rotterdam',
     description: 'XXL Wijnproeverij, High Tea en Privé Proeverijen op de Nieuwe Binnenweg 335A Rotterdam.',
   },
 }
 
-// Actuele evenementen — uit rotterdam_local_content.json (proeverijen-pagina)
-const EVENEMENTEN = [
-  {
-    id:    'xxl',
-    icon:  Wine,
-    title: 'XXL Wijnproeverij',
-    date:  'Vrijdag 19 juni 2026',
-    time:  '19:30 – 22:30',
-    price: '€24,95',
-    unit:  'per persoon',
-    featured: true,
-    description:
-      'Onze grootste proeverij van het voorjaar. Proef ruim 7 zorgvuldig geselecteerde wijnen uit ons assortiment, begeleid door passende kazen en charcuterie. Naomi & Melanie vertellen het verhaal achter ieder huis.',
-    highlights: ['7+ wijnen', 'Kaas & charcuterie', 'Persoonlijke begeleiding'],
-  },
-  {
-    id:    'hightea',
-    icon:  Coffee,
-    title: 'High Tea Deluxe',
-    date:  'Op aanvraag',
-    time:  'Vanaf 2 personen',
-    price: '€34,99',
-    unit:  'per persoon',
-    featured: false,
-    description:
-      'Een luxe high tea met huisgemaakte zoetigheden, hartige delicatessen uit de winkel en een verfijnde theeselectie — desgewenst aangevuld met een glas bubbels.',
-    highlights: ['Zoet & hartig', 'Verse delicatessen', 'Optioneel: bubbels'],
-  },
-  {
-    id:    'prive',
-    icon:  Sparkles,
-    title: 'Privé Wijnproeverij',
-    date:  'Op aanvraag',
-    time:  'Vanaf 6 personen',
-    price: '€34,95',
-    unit:  'per persoon',
-    featured: false,
-    description:
-      'Een besloten proeverij voor jouw gezelschap — verjaardag, teamuitje of gewoon met vrienden. Stel samen met ons het thema samen: van Italiaanse klassiekers tot Spaanse parels.',
-    highlights: ['Besloten gezelschap', 'Thema naar keuze', 'Incl. borrelhapjes'],
-  },
-]
 
 function EvenementCard({ event }: { event: (typeof EVENEMENTEN)[number] }) {
   const Icon = event.icon
@@ -144,7 +103,7 @@ export default function ProeverijenPage() {
           </p>
           <div className="flex items-center justify-center gap-2 text-sm font-sans text-gold">
             <Star size={14} className="fill-gold" />
-            <span>Eerstvolgende: XXL Wijnproeverij — vrijdag 19 juni 2026</span>
+            <span>Eerstvolgende: XXL Wijnproeverij — {PROEVERIJ_DATUM.toLowerCase()}</span>
           </div>
         </div>
       </section>

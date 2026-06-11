@@ -2,13 +2,7 @@
 
 import { useState } from 'react'
 import { Send, Check, Calendar, Users, Mail, User, MessageSquare } from 'lucide-react'
-
-const PROEVERIJ_OPTIES = [
-  'XXL Wijnproeverij (19 juni 2026)',
-  'High Tea',
-  'Privé Wijnproeverij',
-  'Anders / overleg graag',
-]
+import { PROEVERIJ_OPTIES } from '@/lib/evenementen'
 
 export default function ProeverijAanvraag() {
   const [submitted, setSubmitted] = useState(false)
