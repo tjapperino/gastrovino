@@ -186,7 +186,11 @@ function ProductCard({
 }: ProductCardProps) {
   return (
     <div
-      className={`relative flex flex-col overflow-hidden rounded-2xl border-2 bg-cream transition-all duration-200 cursor-pointer ${
+      role="checkbox"
+      aria-checked={selected}
+      tabIndex={0}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle() } }}
+      className={`relative flex flex-col overflow-hidden rounded-2xl border-2 bg-cream transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${
         selected
           ? 'border-gold shadow-warm-lg'
           : 'border-cream-darker hover:border-olive/30 shadow-warm-sm hover:shadow-warm'
@@ -286,9 +290,11 @@ function VastePlankCard({
   plank, selected, onSelect,
 }: { plank: typeof BORRELPLANKEN[number]; selected: boolean; onSelect: () => void }) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onSelect}
-      className={`relative flex flex-col overflow-hidden rounded-2xl border-2 bg-cream transition-all duration-200 cursor-pointer ${
+      aria-pressed={selected}
+      className={`relative flex flex-col overflow-hidden rounded-2xl border-2 bg-cream transition-all duration-200 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${
         selected
           ? 'border-gold shadow-warm-lg'
           : 'border-cream-darker hover:border-olive/30 shadow-warm-sm hover:shadow-warm'
@@ -335,7 +341,7 @@ function VastePlankCard({
           <span className="block text-[10px] font-sans text-ink-subtle">per plank · vers opgemaakt</span>
         </div>
       </div>
-    </div>
+    </button>
   )
 }
 

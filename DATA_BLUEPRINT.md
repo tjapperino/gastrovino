@@ -1,5 +1,9 @@
 # Gastrovino Rotterdam — Data & Design Blueprint
-> **Single Source of Truth** · Versie 2.0 · 9 juni 2026
+> **Single Source of Truth** · Versie 2.1 · 11 juni 2026
+>
+> ⚠️ **Kleurenpalet hieronder is verouderd.** Het werkelijke palet staat in
+> `tailwind.config.ts` (tokens: terracotta #71413D, gold #B39662, cream #FBF1DB, olive).
+> Typografie: Libre Baskerville (serif) + Jost (sans), geconfigureerd in `src/app/layout.tsx`.
 
 Dit document is de definitieve architectuurreferentie voor het Gastrovino Rotterdam Next.js platform. Alle technische besluiten, design-keuzes en content-structuur staan hier vastgelegd.
 

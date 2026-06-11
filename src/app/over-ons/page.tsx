@@ -37,8 +37,8 @@ export default function OverOnsPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 30% 30%, rgba(107,122,62,0.08) 0%, transparent 70%), ' +
-              'radial-gradient(ellipse 50% 50% at 90% 80%, rgba(196,113,74,0.07) 0%, transparent 60%)',
+              'radial-gradient(ellipse 70% 60% at 30% 30%, rgba(113,65,61,0.08) 0%, transparent 70%), ' +
+              'radial-gradient(ellipse 50% 50% at 90% 80%, rgba(179,150,98,0.07) 0%, transparent 60%)',
           }}
         />
         <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28 grid md:grid-cols-[1fr_400px] gap-12 items-center">
