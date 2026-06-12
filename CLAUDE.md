@@ -23,7 +23,9 @@ Zie `src/app/layout.tsx` voor font-imports.
   PROEVERIJ_DATUM, UPCOMING_EVENT, EVENEMENTEN, PROEVERIJ_OPTIES.
   Bij datum-wijziging: alleen dit bestand aanpassen.
 - Productfoto's: `public/shop/<id>-<idx>.<ext>` (lokaal)
-- Hero-foto winkel: `public/hero-winkel.jpg` (lokaal)
+- Sfeer-/winkelfoto's: `public/img/` — geoptimaliseerd (sips, max 1600px)
+  vanuit bronmap `foto/` (staat in .gitignore). Winkelinterieur, borrelplanken,
+  proeverijen, catering en Naomi & Melanie.
 - Merkafbeeldingen: `public/brand/` (logo-rond.png, logo-liggend.png, etc.)
 
 ## Pagina's

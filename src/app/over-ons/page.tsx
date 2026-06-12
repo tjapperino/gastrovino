@@ -65,8 +65,8 @@ export default function OverOnsPage() {
             <div className="absolute -inset-4 bg-gradient-to-br from-olive/10 to-terracotta/10 rounded-3xl" />
             <div className="relative rounded-2xl overflow-hidden shadow-warm-lg aspect-[3/4]">
               <Image
-                src="/hero-winkel.jpg"
-                alt="De winkel van Gastrovino Rotterdam aan de Nieuwe Binnenweg"
+                src="/img/winkel-interieur.jpg"
+                alt="Het interieur van Gastrovino Rotterdam met de wijnwand en delicatessen aan de Nieuwe Binnenweg"
                 fill
                 className="object-cover"
                 sizes="400px"
@@ -117,6 +117,51 @@ export default function OverOnsPage() {
           <p className="text-center font-serif text-lg italic text-olive">
             — Team Gastrovino Rotterdam
           </p>
+
+          <figure className="max-w-sm mx-auto pt-2">
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-warm-lg">
+              <Image
+                src="/img/naomi-melanie.jpg"
+                alt="Naomi en Melanie samen op bezoek bij een wijngoed"
+                fill
+                sizes="(max-width: 768px) 100vw, 384px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="text-center text-xs font-sans text-ink-subtle mt-3">
+              Naomi &amp; Melanie — op pad bij de wijngoederen, op zoek naar nieuwe ontdekkingen
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* ── Kijkje in de winkel ── */}
+      <section className="mx-auto max-w-6xl px-6 pt-16 md:pt-20">
+        <div className="text-center mb-10 space-y-3">
+          <p className="text-[11px] uppercase tracking-[0.25em] font-sans font-semibold text-gold">
+            Een kijkje binnen
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl font-medium text-ink">
+            De winkel aan de Nieuwe Binnenweg
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { src: '/img/winkel-keramiek.jpg', alt: 'Italiaans handbeschilderd keramiek wordt uitgestald in de winkel' },
+            { src: '/img/kaas-vers.jpg',       alt: 'Vers doorgesneden Gastrovino Momentum kazen bij de kaastoonbank' },
+            { src: '/img/wijn-advies.jpg',     alt: 'Een fles wijn wordt uit de wijnwand gepakt' },
+            { src: '/img/winkel-wijnwand.jpg', alt: 'De grote wijnwand met honderden flessen en de proeftafel' },
+          ].map(foto => (
+            <div key={foto.src} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-warm">
+              <Image
+                src={foto.src}
+                alt={foto.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+          ))}
         </div>
       </section>
 

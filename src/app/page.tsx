@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   MapPin, Clock, Phone, Mail, ChevronRight,
@@ -9,6 +10,7 @@ import { UPCOMING_EVENT, PROEVERIJ_DATUM_KORT } from '@/lib/evenementen'
 import Hero from '@/components/Hero'
 import WijnOvergang from '@/components/WijnOvergang'
 import ProductShelf from '@/components/ProductShelf'
+import InstagramFeed from '@/components/InstagramFeed'
 
 function IconInstagram() {
   return (
@@ -187,7 +189,7 @@ export default function HomePage() {
     ],
     priceRange:  '€€',
     servesCuisine: ['Wine', 'Delicatessen'],
-    image:       'https://gastrovinorotterdam.nl/hero-winkel.jpg',
+    image:       'https://gastrovinorotterdam.nl/img/winkel-overzicht.jpg',
   }
 
   return (
@@ -344,25 +346,39 @@ export default function HomePage() {
 
         {/* ── Over ons strip ── */}
         <section className="bg-cream-dark border-b border-cream-darker">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20 text-center space-y-6">
-            <OrnamentDivider label="Ons verhaal" />
-            <h2 className="text-3xl md:text-4xl font-serif font-medium text-ink mt-4 max-w-2xl mx-auto leading-tight">
-              Kwaliteit en een persoonlijke service staan bij ons centraal
-            </h2>
-            <p className="text-ink-muted max-w-xl mx-auto font-sans leading-relaxed">
-              Naomi &amp; Melanie openden Gastrovino Rotterdam in november 2023 op de
-              Nieuwe Binnenweg 335A. Naast de beste wijnen vind je er vers gebrande
-              noten, tapas, vleeswaren, Hollandse &amp; buitenlandse kazen, chocolade,
-              olijfolie en een uitgebreid assortiment lokale Rotterdamse producten.
-            </p>
-            <Link
-              href="/over-ons"
-              className="inline-flex items-center gap-2 text-olive font-medium font-sans text-sm hover:text-olive-dark transition-colors"
-            >
-              Lees ons verhaal <ChevronRight size={14} />
-            </Link>
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+            <div className="relative aspect-[3/2] rounded-2xl overflow-hidden shadow-warm-lg">
+              <Image
+                src="/img/winkel-overzicht.jpg"
+                alt="De winkel van Gastrovino Rotterdam van binnen, met delicatessen, kaastoonbank en de olijfboom"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-6 text-center md:text-left">
+              <OrnamentDivider label="Ons verhaal" />
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-ink mt-4 leading-tight">
+                Kwaliteit en een persoonlijke service staan bij ons centraal
+              </h2>
+              <p className="text-ink-muted font-sans leading-relaxed">
+                Naomi &amp; Melanie openden Gastrovino Rotterdam in november 2023 op de
+                Nieuwe Binnenweg 335A. Naast de beste wijnen vind je er vers gebrande
+                noten, tapas, vleeswaren, Hollandse &amp; buitenlandse kazen, chocolade,
+                olijfolie en een uitgebreid assortiment lokale Rotterdamse producten.
+              </p>
+              <Link
+                href="/over-ons"
+                className="inline-flex items-center gap-2 text-olive font-medium font-sans text-sm hover:text-olive-dark transition-colors"
+              >
+                Lees ons verhaal <ChevronRight size={14} />
+              </Link>
+            </div>
           </div>
         </section>
+
+        {/* ── Instagram ── */}
+        <InstagramFeed />
       </main>
     </>
   )

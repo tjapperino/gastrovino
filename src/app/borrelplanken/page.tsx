@@ -119,8 +119,8 @@ export default function BorrelplankenPage() {
           </div>
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-warm-lg">
             <Image
-              src="/shop/155-0.jpg"
-              alt="Vers afgesneden charcuterie op een houten borrelplank van Gastrovino"
+              src="/img/borrelplank-samen.jpg"
+              alt="Gasten pakken hapjes van een rijk gevulde Gastrovino borrelplank met kazen, charcuterie en olijven"
               fill
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -134,8 +134,8 @@ export default function BorrelplankenPage() {
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20 grid md:grid-cols-2 gap-10 items-center">
         <div className="relative aspect-[3/2] rounded-2xl overflow-hidden shadow-warm order-last md:order-first">
           <Image
-            src="/shop/156-0.png"
-            alt="Rijk gevulde borrelplank met kazen, charcuterie, noten, olijven en dips"
+            src="/img/borrelplank-gevuld.jpg"
+            alt="Rijk gevulde borrelplank met kazen, charcuterie, noten, olijven en verse dips, geserveerd met een glas wijn"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"

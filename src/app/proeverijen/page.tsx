@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import {
   Calendar, Clock, Users,
   MapPin, ChevronRight, Star,
@@ -16,6 +17,12 @@ export const metadata: Metadata = {
   },
 }
 
+const SFEER_FOTOS = [
+  { src: '/img/proeverij-schenken.jpg', alt: 'Wijn wordt ingeschonken voor gasten tijdens een proeverij bij Gastrovino Rotterdam' },
+  { src: '/img/proeverij-glas.jpg',     alt: 'Gast walst een glas rode wijn tijdens de proeverij' },
+  { src: '/img/proeverij-notities.jpg', alt: 'Gasten maken aantekeningen op het proefformulier tussen de wijnglazen' },
+  { src: '/img/proeverij-tafel.jpg',    alt: 'Gedekte proeftafel met wijnglazen en borrelplank in de winkel' },
+]
 
 function EvenementCard({ event }: { event: (typeof EVENEMENTEN)[number] }) {
   const Icon = event.icon
@@ -112,6 +119,29 @@ export default function ProeverijenPage() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid md:grid-cols-3 gap-6">
           {EVENEMENTEN.map(e => <EvenementCard key={e.id} event={e} />)}
+        </div>
+      </section>
+
+      {/* ── Sfeerimpressie ── */}
+      <section className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="text-center mb-8 space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.25em] font-sans font-semibold text-gold">
+            Sfeerimpressie
+          </p>
+          <h2 className="font-serif text-3xl font-medium text-ink">Zo proeft een avond bij ons</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {SFEER_FOTOS.map(foto => (
+            <div key={foto.src} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-warm">
+              <Image
+                src={foto.src}
+                alt={foto.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+          ))}
         </div>
       </section>
 

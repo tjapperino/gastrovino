@@ -6,4 +6,8 @@ node_modules/
 tsconfig.tsbuildinfo
 .DS_Store
 *.pem
+
+# Bronfoto's (originelen — geoptimaliseerde versies staan in public/img)
+/foto/
+/fotos/
 node_modules

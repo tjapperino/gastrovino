@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   Briefcase, Gift, UtensilsCrossed, Sandwich, Phone, Mail,
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
 const DIENSTEN = [
   {
     icon: Sandwich,
+    image: '/img/catering-broodjes.jpg',
+    imageAlt: 'Medewerker van Gastrovino Rotterdam presenteert een doos vers belegde luxe broodjes',
     title: 'Lunch op het werk',
     description:
       'Verse, luxe belegde broodjes en salades, bezorgd op kantoor in Rotterdam-West. Wekelijks wisselend aanbod met delicatessen uit de winkel — van Italiaanse vleeswaren tot Rotterdamsche Oude.',
@@ -25,6 +28,8 @@ const DIENSTEN = [
   },
   {
     icon: UtensilsCrossed,
+    image: '/img/borrelplank-rose.jpg',
+    imageAlt: 'Rijk gevulde borrelplank met kazen, charcuterie en dips, geserveerd met een glas rosé',
     title: 'Borrelplanken voor events',
     description:
       'Op maat samengestelde borrelplanken voor recepties, borrels en zakelijke bijeenkomsten. Van een intieme teamborrel tot een receptie voor tientallen gasten — altijd vers opgemaakt.',
@@ -32,6 +37,8 @@ const DIENSTEN = [
   },
   {
     icon: Gift,
+    image: '/img/catering-cadeau.jpg',
+    imageAlt: 'Gastrovino geschenkdoos gevuld met Italiaanse pasta, wijn en delicatessen',
     title: 'Relatiegeschenken',
     description:
       'Smaakvolle geschenkpakketten met wijnen en delicatessen, op maat samengesteld binnen jouw budget. Persoonlijk ingepakt, eventueel voorzien van eigen kaart of logo.',
@@ -81,23 +88,34 @@ export default function CateringPage() {
             return (
               <article
                 key={dienst.title}
-                className="card-warm border border-cream-darker/60 hover:border-olive/25 p-7 flex flex-col gap-4"
+                className="card-warm border border-cream-darker/60 hover:border-olive/25 flex flex-col overflow-hidden"
               >
-                <div className="rounded-lg p-2.5 bg-olive/10 text-olive w-fit">
-                  <Icon size={22} strokeWidth={1.6} />
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={dienst.image}
+                    alt={dienst.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
-                <h2 className="font-serif text-xl font-medium text-ink">{dienst.title}</h2>
-                <p className="text-sm font-sans text-ink-muted leading-relaxed flex-1">
-                  {dienst.description}
-                </p>
-                <ul className="space-y-2">
-                  {dienst.points.map(p => (
-                    <li key={p} className="flex items-center gap-2 text-xs font-sans text-ink-muted">
-                      <Check size={12} className="text-olive shrink-0" strokeWidth={2.5} />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
+                <div className="p-7 flex flex-col gap-4 flex-1">
+                  <div className="rounded-lg p-2.5 bg-olive/10 text-olive w-fit">
+                    <Icon size={22} strokeWidth={1.6} />
+                  </div>
+                  <h2 className="font-serif text-xl font-medium text-ink">{dienst.title}</h2>
+                  <p className="text-sm font-sans text-ink-muted leading-relaxed flex-1">
+                    {dienst.description}
+                  </p>
+                  <ul className="space-y-2">
+                    {dienst.points.map(p => (
+                      <li key={p} className="flex items-center gap-2 text-xs font-sans text-ink-muted">
+                        <Check size={12} className="text-olive shrink-0" strokeWidth={2.5} />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </article>
             )
           })}

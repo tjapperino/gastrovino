@@ -23,6 +23,11 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    // Secties hoger dan het scherm (mobiel: gestapelde kaarten) halen de
+    // gevraagde ratio nooit — clamp op wat met dit viewport haalbaar is.
+    const maxRatio = (window.innerHeight / el.offsetHeight) * 0.6;
+    const effectiveThreshold = Math.max(0.05, Math.min(threshold, maxRatio));
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -32,7 +37,7 @@ export default function ScrollReveal({
           }
         }
       },
-      { threshold }
+      { threshold: effectiveThreshold }
     );
 
     observer.observe(el);
